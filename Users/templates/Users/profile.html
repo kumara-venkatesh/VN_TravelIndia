@@ -1,0 +1,158 @@
+{% extends 'TourPackages\Base.html' %}
+
+{% block content %}
+
+
+<script type="text/javascript">
+	function checkImg()
+	{
+		var fileInput = document.getElementById('myprofile');
+		var filePath = fileInput.value;
+		var allowedExt = /(\.jpg|\.jpeg|\.png)$/i;
+		if (!allowedExt.exec(filePath))
+		{
+			alert('Please select only JPG/JPEG/PNG file','Warning');
+			fileInput.value='';
+		}
+		
+	}
+
+</script>
+
+<script type="text/javascript">
+	function validate()
+	{
+		var dtCurrent = new Date();
+	    var dob = document.getElementById("birthday");
+	    dobvalue = dob.value;
+	    var partdob = dobvalue.split("-")[0];
+        
+
+        
+	    if ((dtCurrent.getFullYear() - partdob) < 18)
+	    {
+	    	alert("Date of bith is not valid, Age must be greater than 18 years");
+	    	dob.value="";
+	    }
+
+	}
+
+</script>
+
+<style>
+	.card-block
+	{
+		margin-top: 50%;
+		
+	}
+</style>
+
+
+
+<div class="container mb-5 col-md-7 mt-5">
+	
+		
+		<div class="card shadow-lg mt-2">
+
+            <div class="row ml-0 mr-0 ">
+            <div class="col-sm-3 col-md-6 col-lg-4 bg-secondary">
+               
+                <div class="card-block text-center text-white">       
+                    <img class="rounded-circle account-img" src="{{ user.userprofile.profilepic.url }}" width="110" height="110">
+                
+                    <h4 class="account-heading pt-1">&nbsp {{ user.first_name }} {{ user.last_name }}</h4>
+                    <small class="px-md-2.5">Email :&nbsp{{ user.email }}</small>
+                    <a class="btn btn-outline-light ml-2 mt-2" href="{% url 'password_change' %}"><img src="/media/pwd.png" width="32" height="32"><b> Change Password</b></a>
+                </div>         
+            
+            </div>
+
+            
+            <div class="col-sm-9 col-md-6 col-lg-8">
+			<div class=" mt-3">
+				<h5 class="ml-4"><u>User Profile Details</u><i class="fas fa-edit ml-2"></i></h5>
+
+			</div>
+          
+			<form method="POST" enctype="multipart/form-data">
+                
+
+                
+
+				<div class="card-body">
+                    {% csrf_token %}
+   
+	                <div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text bg-light">Email ID</span>
+						</div>
+						
+						<input type="email" value="{{ user.email }}" class="form-control" name="email" placeholder="Email Id" required>
+
+					</div>
+
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text bg-light">Profile Picture</span>
+						</div>
+						
+							<input  type="file" onchange="checkImg()" class="btn btn-light" id="myprofile" accept=".png,.jpeg,.jpg" name="myprofile" >
+							<label class="ml-2">Current : <a name="imgurl" id="imgurl" href="{{ user.userprofile.profilepic.url }} ">{{ user.userprofile.profilepic.url }}</a></label> 
+						
+
+					</div>
+					
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text bg-light">Contact No</span>
+						</div>
+						
+						<input type="tel" value="{{ user.userprofile.contact_no }}" class="form-control" name="cnumber" minlength="10" maxlength="10" placeholder="Contact Number (10-digits)" pattern="[0-9]{10}" required>	
+					</div>
+
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text bg-light"> Date of Birth</span>
+						</div>
+						
+						<input type="date" value="{{ user.userprofile.dob }}" class="form-control" onchange ="validate()" id="birthday" name="birthday">
+						<label class="input-group text-primary ml-2">Current : {{ user.userprofile.dob }}</label> 	
+
+					</div>
+
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text bg-light">Aadhar No</span>
+						</div>
+						
+						<input type="tel" value="{{ user.userprofile.aadhar_no }}" class="form-control" name="adhar_number" minlength="12" maxlength="12" placeholder="Aadhar Number" pattern="[0-9]{12}" title="Must contain 12 digits, Only digits are allowed" required>	
+					</div>
+
+                   
+
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text bg-light">Address</span>
+						</div>
+						
+						<textarea type="text" class="form-control" minlength="10" maxlength="70" placeholder="Address" name="address" required>{{user.userprofile.address }}</textarea>
+
+					</div>
+
+	
+                </div>
+
+				<div class="card-footer">
+					<button class="btn btn-primary float-right mb-3" type="submit">Update Profile</button>
+				</div>
+			</form>
+            </div>
+
+            </div>
+
+	    </div>
+</div>
+			
+
+	
+{% endblock content %}

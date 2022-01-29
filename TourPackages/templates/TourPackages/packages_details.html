@@ -1,0 +1,222 @@
+{% extends 'TourPackages\Base.html' %}
+{% block content %}
+
+
+<script type="text/javascript">
+    function calcheck(){
+        if (document.getElementById('ntrans').checked){
+            document.getElementById('book').style.display = "block";
+        }
+        else{
+            document.getElementById('book').style.display = "none";
+        }
+    }
+    window.onload = function() {
+        cont = document.getElementById('ytrans').innerHTML;
+        var ntransport = cont.slice(4,-13);
+        var ntransport = parseInt(ntransport.replace(/,/g, ''));
+        ntransport = parseInt(ntransport - (ntransport/100) * 15);
+        document.getElementById('without_trasnport').innerHTML = "INR " + ntransport + " (Per Person)";
+
+    }
+</script>
+
+<style>
+
+.carousel{
+    z-index: -5;
+    
+}
+
+#book a{
+    text-decoration: none;
+    color: rgb(41, 40, 40);
+    border : 0.1px solid rgb(230, 183, 114);
+    
+}
+#book a:hover{
+    background: blanchedalmond;
+    box-shadow: inset 0 0 15px rgb(230, 183, 114);
+    position: relative;
+    transition: all 500ms ease;
+}
+.carousel-item img{
+    width: 100%;
+    height: 550px;
+    border-radius: 10px;
+    display: block;
+
+}
+.carousel-inner{
+    
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.column {
+  flex: 65%;
+  max-width: 65%;
+  padding: 0 2px;
+}
+
+.column img {
+    height: 550px;
+    margin-top: 4px;
+    vertical-align: middle;
+    width: 100%;
+    
+}
+
+.column1 {
+  flex: 35%;
+  max-width: 40%;
+  padding: 0 2px;
+}
+
+.column1 img {
+    height: 175px;
+    margin-top: 4px;
+    vertical-align: middle;
+    width: 100%;
+}
+
+/* Responsive layout - makes a two column-layout instead of four columns */
+
+</style>
+
+<div id="carouselExampleIndicators" class="carousel slide " data-ride="carousel" style="margin-top: -90px;">
+    <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner p-3 " style="height: 550px;">
+    <div class="carousel-item active">
+        <img class="" src="{{ object.PlaceImage1.url }}" alt="First slide" >
+    </div>
+    <div class="carousel-item">
+        <img class="" src="{{ object.PlaceImage2.url }}" alt="Second slide" >
+    </div>
+    <div class="carousel-item">
+        <img class="" src="{{ object.PlaceImage3.url }}" alt="Third slide">
+    </div>
+    </div>
+</div>
+
+
+<div class="m-5" >
+    <div class="">
+        {% load mathfilters %}
+
+        <div class="card" >
+            <div class="row card-header ">
+                <div class="col-md-9">
+                    <h4>
+                        {{ object.PlaceName }}
+                    </h4>
+                    <p class="text-muted">
+                        <i class="fas fa-map-marker-alt text-muted"></i>
+                            
+                         {{ object.City }}
+                        <i class="fas fa-clock text-muted ml-2"></i>
+                            
+                        {{ object.no_Days }}
+    
+                    </p>
+                    <div id="book" style="display: none;">
+                        <a href="{% url 'Veh_Rentals_URL' %}" class="btn btn-outline-warning ml-2" target="_blank"><i class="fas fa-motorcycle fa-4x text-muted">/</i><i class="fas fa-car fa-4x text-muted"></i>
+                            <br><label class="">Rent Vehicles</label>
+                        </a>
+                        <a href="https://www.irctc.co.in/nget/train-search" class="btn btn-outline-warning ml-2" target="_blank"><i class="fas fa-train fa-4x text-muted"></i>
+                            <br><label>Train Reservation</label></a>
+                        <a href="https://ksrtc.in/oprs-web/" class="btn btn-outline-warning ml-2" target="_blank"><i class="fas fa-bus fa-4x text-muted"></i>
+                            <br><label>Bus Reservation</label></a>
+                    </div>
+    
+                </div>
+                
+                <div class="col-md-3">
+        
+                    <ul class="list-group">
+                        <li class="list-group-item "><h4 class="text-danger" id="ytrans">INR {{ object.Amount }} (Per Person)</h4></li>
+                        <details class="">
+                            <summary class="text-muted ml-2">Without Trasnportation</summary>
+                            <li class="list-group-item" >
+                                <div class="input-group form-group">
+                                    <input type="checkbox" id="ntrans" onclick="calcheck()" class="mr-2" style="width:20px; height:20px;">
+                                    <div class="input-group-prepend">
+                                        <h6 class="text-danger" id="without_trasnport">INR (Per Person)</h6>
+                                    </div>
+                                </div>
+                            </li>
+                        </details>
+                        
+                        {% if user.is_authenticated %}
+
+                        <button  class="float-right btn btn-warning" type="submit" name='applytrip' value={{object.id}} >Book Now</button>
+
+                        {% else %}
+                        <a class="float-right btn btn-warning" href="{% url 'Login_URL' %}">Login To Apply</a>
+                        {% endif %}
+                      
+                        
+                    </ul>
+                  
+                </div>
+              
+            </div>
+            <div class="card-body">
+                
+            <small >
+                <p class="text-muted"><i class="fas fa-arrow-right mr-2"></i>Start Point &nbsp &nbsp &nbsp &nbsp &nbsp : &nbsp{{object.Startpoint}}</p>
+                <p class="text-muted"><i class="fas fa-arrow-left mr-2"></i>End Point &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp : &nbsp{{object.Endpoint}}</p>
+                <p class="text-muted"><i class="fa fa-map-marker mr-2"></i>Country/State  &nbsp &nbsp &nbsp: &nbsp {{ object.Country }} / {{ object.State }}</p>
+            </small>       
+            
+                <div class="border shadow rounded p-3 mt-5">
+                    <h6 class="text-muted">
+                        <u>Place Description:</u>
+                    </h6>
+                    <small >{{ object.PlaceDescription }}</small>
+                </div>
+                
+                <div class="border shadow rounded p-3 mt-1">
+                    <h6 class="text-muted">
+                        <u>Activities:</u>
+                    </h6>
+                    <small style="white-space: pre-wrap;">{{ object.Activities }}</small>
+                </div>
+
+                <div class="border shadow rounded p-3 mt-1">
+                    <h6 class="text-muted">
+                        <u>Stay Details:</u>
+                    </h6>
+                    <small >{{ object.stayDetails }}</small>
+                </div>
+
+               
+
+                <div class="border shadow rounded p-3 mt-1">
+                    <h6 class="text-muted">
+                        <u>Exclusions:</u>
+                    </h6>
+                    <small >{{ object.Exclusions }}</small>
+                </div>
+
+                
+            </div>
+
+        </div>
+
+    </div>
+    
+    <div class="">
+        
+
+    </div>
+    
+
+</div>
+
+{% endblock content %}

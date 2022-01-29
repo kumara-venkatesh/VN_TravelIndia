@@ -1,0 +1,50 @@
+{% extends 'TourPackages\Base.html' %}
+{% block content %}
+
+<style>
+
+  .div1{
+		opacity:1.0;
+        border : 0.1px solid white;
+        width: 400px;
+        backdrop-filter: blur(7px);
+        margin-left: 30px;
+	}
+	.div1:hover{
+		opacity: 1.0;
+		border : 7px solid white;
+    position: relative;
+    box-sizing: border-box;
+		transition: all 500ms ease;
+	}
+
+</style>
+
+    <h3 style="text-align: center; color: blanchedalmond;">Packages offered</h3>
+    <div class="row m-5">
+        {% for pack in packag %}
+
+        <div class="div1 bg-light rounded m-4" style=" width: 290px; height: 350px;" >
+        <a class="text-dark" href="{% url 'Package_details_URL' pack.id %}" style="text-decoration: none;">
+            <img class="card-img-top" src="{{ pack.PlaceImage1.url }}" alt="Bologna">
+            <div class="card-body text-center">
+              <h6 class="card-title">{{ pack.PlaceName }}</h6>
+              <span><i class="fas fa-clock text-muted mr-2"></i>{{ pack.no_Days }}</span><br>
+              <span><i class="fa fa-map-marker-alt mr-2"></i>{{ pack.Country }}, {{ pack.State }}, {{ pack.City }}</span> <br>
+              <span class="text-danger"><i class="fa fa-money text-muted mr-2"></i>Amount : {{ pack.Amount }}</span>
+    
+            </div>
+        </a>
+          </div>
+        {% empty %}
+
+        <h5 class='text-white pt-2 ml-4'>
+            No Data Present.
+        </h5>
+
+        {% endfor %}
+    </div>
+    
+    
+
+{% endblock content %}

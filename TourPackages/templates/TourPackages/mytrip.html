@@ -1,0 +1,146 @@
+{% extends 'TourPackages\Base.html' %}
+
+{% block content %}
+
+<style>
+
+	thead {
+		background: linear-gradient(45deg, #d1cde4, #dcec91);
+        border: 2.5px solid white;
+	}
+    tbody{
+        background: linear-gradient(45deg,#dcec91, #d1cde4);   
+    }
+	
+  
+</style>
+
+
+<div class="ml-5 mr-5">
+    <form method="get" action="#">    
+        <h4 class="mb-4" style="text-align: center; color: white;">
+            My Trip Details
+        </h4>
+    <table class="table table-hover table-striped">       
+        <thead class="">
+            <tr>
+                <th scope="col">Trip to</th>
+                <th scope="col">Applied Date</th>
+                <th scope="col">No of Members</th>
+                <th scope="col">Approval Status</th>
+                <th scope="col">Payment</th>
+                <th scope="col">Trip Date</th>
+                <th scope="col">Remarks</th>        
+            </tr>
+        </thead>
+        <tbody class="">
+            <tr>
+                <td>Nagpur</td>
+                <td>15-012-2021</td>
+                <td>3</td>
+                <td>pending</td>
+                <td>pending</td>
+                <td>NA</td>
+                <td>NA</td>
+            </tr>
+            <tr>
+                <td>Kashmir</td>
+                <td>05-03-2020</td>
+                <td>1</td>
+                <td class="text-danger">Rejected</td>
+                <td>Not Received</td>
+                <td>NA</td>
+                <td>NA</td>
+            </tr>
+            <tr>
+                <td>Delhi</td>
+                <td>05-02-2020</td>
+                <td>1</td>
+                <td>Accepted</td>
+                <td>Completed</td>
+                <td>NA</td>
+                <td>NA</td>
+            </tr>
+            <tr>
+                <td>Chikmagaluru</td>
+                <td>05-03-2019</td>
+                <td>3</td>
+                <td>Accepted</td>
+                <td>Completed</td>
+                <td>NA</td>
+                <td>NA</td>
+            </tr>
+            <tr>
+                <td>Kashmir</td>
+                <td>15-05-2018</td>
+                <td>1</td>
+                <td class="text-danger">Rejected</td>
+                <td>Not Received</td>
+                <td>NA</td>
+                <td>NA</td>
+            </tr>
+            <tr>
+                <td>Delhi</td>
+                <td>05-03-2018</td>
+                <td>1</td>
+                <td>Accepted</td>
+                <td>Completed</td>
+                <td>NA</td>
+                <td>NA</td>
+            </tr>
+            <tr>
+                <td>Chikmagaluru</td>
+                <td>05-03-2018</td>
+                <td>3</td>
+                <td>Accepted</td>
+                <td>Completed</td>
+                <td>NA</td>
+                <td>NA</td>
+            </tr>
+        
+
+        
+            
+        
+        <!--{% for request in requests %}
+        <tr>
+            <td scope="row"> {{ request.Serv_Type }} </td>
+            <td>{{ request.Serv_Name }}</td>
+            <td>{{ request.Serv_Applied_Date.date }}</td>
+            {% if request.Serv_Approval_Status == 'pending' %}
+                <td class="bg-warning">{{ request.Serv_Approval_Status }}</td>
+            {% elif request.Serv_Approval_Status == 'approved' %}
+                <td class="bg-success">{{ request.Serv_Approval_Status }}</td>
+            {% endif %}
+            {% if request.Serv_Completion_Status == 'pending' %}
+                <td class="bg-warning">{{ request.Serv_Completion_Status }}</td>
+            {% elif request.Serv_Completion_Status == 'approved' %}
+                <td class="bg-success">{{ request.Serv_Completion_Status }}</td>
+            {% else %}
+                <td class="">{{ request.Serv_Completion_Status }}</td>
+            {% endif %}
+            
+            <td>{{ request.Serv_Remarks }}</td>
+            <td>
+                <a class="btn btn-outline-primary" href="{% url 'service-detail' request.id %}">View</a>
+            </td>
+          </tr>
+        
+        {% empty %}
+        <tr>
+            <td align="center" colspan="7" class="text-white" >No Entries</td>
+        </tr>
+        
+        
+        
+        {% endfor %}-->
+        </tbody>
+        </table>
+    </form>
+
+</div>
+
+
+
+
+{% endblock content %}

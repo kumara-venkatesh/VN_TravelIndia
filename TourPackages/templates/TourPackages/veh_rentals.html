@@ -1,0 +1,126 @@
+{% extends 'TourPackages\Base.html' %}
+{% block content %}
+
+<script type="text/javascript">
+	function SetAmount()
+	{
+		var veh = document.getElementById('vehtype').value;
+		var amount = document.getElementById('AmountPerDay');
+		if (veh == 'Car'){
+			amount.innerHTML = "Amount Per Day : 3000"
+		}
+		if (veh == 'Bike'){
+			amount.innerHTML = "Amount Per Day : 1500"
+		}
+		
+
+	}
+
+
+$(function(){
+    var dtToday = new Date();
+    
+    var month = dtToday.getMonth() + 1;
+    var day = dtToday.getDate();
+    var year = dtToday.getFullYear();
+    if(month < 10)
+        month = '0' + month.toString();
+    if(day < 10)
+        day = '0' + day.toString();
+    
+    var maxDate = year + '-' + month + '-' + day;
+	var Tomonth = dtToday.getMonth() + 3;
+	if(Tomonth < 10)
+		Tomonth = '0' + Tomonth.toString();
+	maxToDate = year + '-' + Tomonth + '-' + day;
+    $('#date').attr('min', maxDate);
+	$('#date').attr('max', maxToDate);
+});
+
+</script>
+
+<form method="POST" enctype="multipart/form-data" >
+{% csrf_token %}
+	<div class="container mt-4 mb-5 col-md-5">
+		<div class="card">
+			<div class="card-header">
+				<h5 class="">Rent Vehicle <i class="fas fa-car ml-2"></i>/<i class="fas fa-motorcycle"></i></h5>
+			</div>
+			<div class="card-body">
+				<div class="input-group form-group">
+					<div class="input-group-prepend">
+						<span class="input-group-text"><i class="fas fa-car">/</i><i class="fas fa-motorcycle mr-2"></i>Vehicle Type</i></span>
+					</div>
+					
+						<select class="form-control" onchange="SetAmount()" name="vehtype" id="vehtype" required>
+                            <option disabled selected></option>
+                            <option>Car</option>
+                            <option>Bike</option>
+                        </select>
+				</div>
+
+				<div class="form-group">
+					<div class="">
+						<label class="input-group-text" name="AmountPerDay" id="AmountPerDay"><i class="fas fa-dollar"></i>Amount Per Day :</label>
+					</div>
+
+				</div>
+				<div class="form-group">
+					<div class="">
+						<span class="input-group-text text-danger"><i class="fas fa-dollar"></i>Advance 10,000/- Rupees has to pay while collecting the vehicle</span>
+					</div>
+
+				</div>
+
+
+
+                <div class="input-group form-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-calendar-alt mr-2"></i>Vehicle Required Date</span>
+                    </div>
+                    
+                    <input type="date" class="form-control" id="date" name="date" required>	
+
+                </div>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-calendar-day mr-2"></i>Days</span>
+						</div>
+						
+						<input type="number" minlength="2" class="form-control" name="ndays" min="1" max="10" placeholder="Number of Days" required>
+
+					</div>
+
+					<div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-file-alt mr-2"></i>Upload Driving Licence</span>
+                        </div>
+                  
+                            <input type="file" onchange="check()" class="btn btn-light" id="doc_proof" accept=".doc,.docx,.pdf" name="doc_proof" required>
+                    </div>
+
+					
+					
+
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-address-card"></i></span>
+						</div>
+						
+						<textarea type="text" class="form-control" minlength="10" maxlength="70" placeholder="Address" name="address" required ></textarea>
+					</div>
+                    
+
+
+			</div>
+			<div class="card-footer">
+				<input type="submit" class="btn btn-primary"  value="Request" name="submit">
+			</div>
+		
+			
+		</div>
+		
+		
+	</div>
+</form>
+{% endblock content %}

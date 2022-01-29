@@ -1,0 +1,146 @@
+{% extends 'TourPackages\Base.html' %}
+{% block content %}
+
+<style>
+
+
+  .campus-col{
+    border-radius: 10px;
+    margin: 35px;
+    width: 300px;
+    height: 430px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .campus-col img{
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .layer h3{
+    text-decoration: none;
+    color: white;
+    width: 100%;
+    font-size: 30px;
+    bottom:0;
+    opacity: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    
+    transition: 0.5s;
+  }
+
+  .layer:hover h3{
+    bottom: 44%;
+    opacity: 1;
+  }
+
+  .layer{
+    background: transparent;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: 0.5s;
+  }
+
+  .layer:hover{
+    background: rgba(0, 238, 255, 0.6);
+
+  }
+
+  </style>
+
+
+
+<body style="background:#fff url('/media/banner.jpg') no-repeat; background-size: cover; position: relative;">
+  <div class="container w-100 p-3" style="text-align: center; margin: auto;">
+    <div class="" style="margin-top: -25px;">
+      <h2 class="text-white" style="font-size:40px;">Seasonal Packages</h2>
+      <p class="" style="font-size:18px;">Enjoy every moment in every season</p>
+    </div>
+    
+    <div class="row">
+      
+
+        <div class="campus-col">
+          <a href="{% url 'Package_URL' 'Spring' %}">
+            <img class="" alt="" src="https://wallpapercave.com/wp/wp3439937.jpg">
+            <div class="layer"> 
+                <h3>Spring</h3>
+            </div>
+          </a>
+        </div>
+      
+        <div class="campus-col">
+          <a href="{% url 'Package_URL' 'Summer' %}">
+            <img class="" alt="" src="https://media.cntraveler.com/photos/60e612ae0a709e97d73d9c60/3:4/w_2880,h_3840,c_limit/Beach%20Vacation%20Packing%20List-2021_GettyImages-1030311160.jpg">
+            <div class="layer"> 
+                <h3>Summer</h3>
+            </div>
+          </a>
+        </div>
+
+        <div class="campus-col">
+          <a href="{% url 'Package_URL' 'Monsoon' %}">
+            <img class="" alt="" src="https://www.pinkvilla.com/imageresize/waterfall-main_0.jpg?width=752&format=webp&t=pvorg">
+            <div class="layer"> 
+                <h3>Monsoon</h3>
+            </div>
+          </a>
+        </div>
+      
+      
+    </div>
+
+    <div class="row mt-5">
+      <div class="campus-col">
+        <a href="{% url 'Package_URL' 'Autumn' %}">
+          <img class="" alt="" src="https://www.teahub.io/photos/full/68-686865_iphone-x-wallpaper-fall.jpg">
+          <div class="layer"> 
+              <h3>Autumn</h3>
+          </div>
+        </a>
+      </div>
+
+      <div class="campus-col">
+        <a href="{% url 'Package_URL' 'Pre-Winter' %}">
+          <img class="" alt="" src="https://i.pinimg.com/originals/48/43/e6/4843e6f6e70ef308590c07df3df169f9.jpg">
+          <div class="layer"> 
+              <h3>Pre-Winter</h3>
+          </div>
+        </a>
+      </div>
+
+      <div class="campus-col">
+        <a href="{% url 'Package_URL' 'Winter' %}">
+          <img class="" alt="" src="https://i.pinimg.com/originals/7e/59/8e/7e598eb77d3f9b62059f83a31b2095b0.jpg">
+          <div class="layer"> 
+              <h3>Winter</h3>
+          </div>
+        </a>
+      </div>
+
+    </div>
+
+    <div class="row mt-5">
+      
+      <div class="" style="margin-left: 40%;">
+        <a href="{% url 'Package_List_URL' %}" class="btn btn-secondary">
+          <h3 class="">More Packages</h3>
+        </a>
+      </div>
+    
+      
+    </div>
+
+
+  </div>
+
+
+</body>
+{% endblock content %}

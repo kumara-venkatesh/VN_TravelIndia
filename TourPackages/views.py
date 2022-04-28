@@ -17,8 +17,9 @@ class package_details(DetailView):
     template_name_suffix = '_details'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        userinfo = self.request.user
-        UserName = userinfo.first_name + ' ' + userinfo.last_name
+        """if self.request.user.is_authenticated():
+            userinfo = self.request.user
+            UserName = userinfo.first_name + ' ' + userinfo.last_name"""
         tripid = self.request.GET.get('applytrip')
         if self.request.method == "GET":
             pass

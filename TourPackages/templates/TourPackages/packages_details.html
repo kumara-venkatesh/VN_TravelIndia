@@ -157,7 +157,7 @@
                         <button  class="float-right btn btn-warning" type="submit" name='applytrip' value={{object.id}} >Book Now</button>
 
                         {% else %}
-                        <a class="float-right btn btn-warning" href="{% url 'Login_URL' %}">Login To Apply</a>
+                        <a class="float-right btn btn-warning" href="{% url 'Login_URL' %}?next={{request.path}}">Login To Apply</a>
                         {% endif %}
                       
                         

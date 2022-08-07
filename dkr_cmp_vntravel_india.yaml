@@ -1,0 +1,16 @@
+version: '3'
+services:
+  dkr_cont_vntravel_india:
+    image: vntravelindia:1.0
+    ports:
+      - 8000:8000
+    volumes:
+      - vntravel_india_vol:/home/app/webapp
+
+volumes:
+  vntravel_india_vol:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: 'C:\Ignou_MCA\FinalYearProject\Django_Projects\VNTravelIndia\VN_TravelIndia'

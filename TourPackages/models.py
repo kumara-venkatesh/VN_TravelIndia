@@ -24,7 +24,7 @@ class Packages(models.Model):
     City = models.CharField(max_length=100, default=None, null=True)
     PlaceDescription = models.TextField(default=None, null=True)
     no_Days = models.CharField(max_length=10, default=None, null=True)
-    Amount = models.CharField(max_length=10, default=None, null=True)
+    Amount = models.FloatField(max_length=10, default=None, null=True)
     stayDetails = models.TextField(default=None, null=True)
     Activities = models.TextField(default=None, null=True)
     Startpoint = models.CharField(max_length=50, default=None, null=True )
@@ -36,11 +36,21 @@ class Packages(models.Model):
     def __str__(self):
         return self.PlaceName
 
+status = (
+    ("",""),
+    ("Planning","Planning"),
+    ("Progress", "Progress"),
+    ("Completed","Completed"),
+)
 class TripInfo(models.Model):
-    Seats_Available = models.CharField(max_length=5)
+    Seats_Available = models.IntegerField(max_length=2)
     Trip_Start_Date = models.DateTimeField()
     Trip_End_Date = models.DateTimeField()
     Trip_For = models.ForeignKey(Packages, on_delete=models.CASCADE)
+    Trip_status = models.CharField(max_length=20, default=None, choices=status)
+
+    def __str__(self):
+        return ("%s__%s__%s"%(self.Trip_status,self.Trip_Start_Date,self.Trip_For))
 
 class Trip_Requests(models.Model):
     Date_Applied = models.DateTimeField(default=timezone.now)
@@ -48,7 +58,8 @@ class Trip_Requests(models.Model):
     Applied_For = models.ForeignKey(TripInfo, on_delete=models.CASCADE)
     Transport_Opted = models.CharField(max_length=20)
     Payment_Status = models.CharField(max_length=20)
-    No_of_Seats_Applied = models.CharField(max_length=20)
+    No_of_Seats_Applied = models.IntegerField(max_length=2)
+    Amount = models.FloatField(max_length=10, default=None, null=True)
 
     def __str__(self):
-        return self.Applied_By
+        return ("%s__%s"%(self.Applied_By,self.Applied_For))

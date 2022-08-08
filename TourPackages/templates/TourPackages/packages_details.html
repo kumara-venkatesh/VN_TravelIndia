@@ -15,7 +15,7 @@
         cont = document.getElementById('ytrans').innerHTML;
         var ntransport = cont.slice(4,-13);
         var ntransport = parseInt(ntransport.replace(/,/g, ''));
-        ntransport = parseInt(ntransport - (ntransport/100) * 15);
+        ntransport = parseInt(ntransport - (ntransport/100) * 20);
         document.getElementById('without_trasnport').innerHTML = "INR " + ntransport + " (Per Person)";
 
     }
@@ -85,6 +85,8 @@
 
 </style>
 
+<form method="GET" role="form">
+	{% csrf_token %}
 <div id="carouselExampleIndicators" class="carousel slide " data-ride="carousel" style="margin-top: -90px;">
     <ol class="carousel-indicators">
     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -139,20 +141,28 @@
                 <div class="col-md-3">
         
                     <ul class="list-group">
-                        <li class="list-group-item "><h4 class="text-danger" id="ytrans">INR {{ object.Amount }} (Per Person)</h4></li>
+                        <li class="list-group-item "><h4 class="text-danger" name="ytrans" id="ytrans">INR {{ object.Amount }} (Per Person)</h4></li>
                         <details class="">
                             <summary class="text-muted ml-2">Without Trasnportation</summary>
                             <li class="list-group-item" >
                                 <div class="input-group form-group">
-                                    <input type="checkbox" id="ntrans" onclick="calcheck()" class="mr-2" style="width:20px; height:20px;">
+                                    <input type="checkbox" name="ntrans" id="ntrans" onclick="calcheck()" class="mr-2" style="width:20px; height:20px;">
                                     <div class="input-group-prepend">
-                                        <h6 class="text-danger" id="without_trasnport">INR (Per Person)</h6>
+                                        <h6 class="text-danger" name="without_trasnport" id="without_trasnport">INR (Per Person)</h6>
                                     </div>
                                 </div>
                             </li>
                         </details>
                         
                         {% if user.is_authenticated %}
+                        
+                        <div class="input-group form-group mt-2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">No. of Seats</span>
+                            </div>
+                            
+                            <input type="number" class="form-control" name="no_of_seats" max="30" min="1" required>
+                        </div>
 
                         <button  class="float-right btn btn-warning" type="submit" name='applytrip' value={{object.id}} >Book Now</button>
 
@@ -218,5 +228,6 @@
     
 
 </div>
+</form>
 
 {% endblock content %}

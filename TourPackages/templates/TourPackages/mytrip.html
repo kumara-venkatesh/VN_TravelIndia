@@ -26,103 +26,35 @@
             <tr>
                 <th scope="col">Trip to</th>
                 <th scope="col">Applied Date</th>
-                <th scope="col">No of Members</th>
-                <th scope="col">Approval Status</th>
-                <th scope="col">Payment</th>
                 <th scope="col">Trip Date</th>
-                <th scope="col">Remarks</th>        
+                <th scope="col">With Transport</th>
+                <th scope="col">No of Members</th>
+                <th scope="col">Total Amount</th>
+                <th scope="col">Payment Status</th>
+                <th scope="col">Pay</th>
+                
             </tr>
         </thead>
-        <tbody class="">
-            <tr>
-                <td>Nagpur</td>
-                <td>15-012-2021</td>
-                <td>3</td>
-                <td>pending</td>
-                <td>pending</td>
-                <td>NA</td>
-                <td>NA</td>
-            </tr>
-            <tr>
-                <td>Kashmir</td>
-                <td>05-03-2020</td>
-                <td>1</td>
-                <td class="text-danger">Rejected</td>
-                <td>Not Received</td>
-                <td>NA</td>
-                <td>NA</td>
-            </tr>
-            <tr>
-                <td>Delhi</td>
-                <td>05-02-2020</td>
-                <td>1</td>
-                <td>Accepted</td>
-                <td>Completed</td>
-                <td>NA</td>
-                <td>NA</td>
-            </tr>
-            <tr>
-                <td>Chikmagaluru</td>
-                <td>05-03-2019</td>
-                <td>3</td>
-                <td>Accepted</td>
-                <td>Completed</td>
-                <td>NA</td>
-                <td>NA</td>
-            </tr>
-            <tr>
-                <td>Kashmir</td>
-                <td>15-05-2018</td>
-                <td>1</td>
-                <td class="text-danger">Rejected</td>
-                <td>Not Received</td>
-                <td>NA</td>
-                <td>NA</td>
-            </tr>
-            <tr>
-                <td>Delhi</td>
-                <td>05-03-2018</td>
-                <td>1</td>
-                <td>Accepted</td>
-                <td>Completed</td>
-                <td>NA</td>
-                <td>NA</td>
-            </tr>
-            <tr>
-                <td>Chikmagaluru</td>
-                <td>05-03-2018</td>
-                <td>3</td>
-                <td>Accepted</td>
-                <td>Completed</td>
-                <td>NA</td>
-                <td>NA</td>
-            </tr>
-        
-
-        
+        <tbody>
             
-        
-        <!--{% for request in requests %}
+        {% for request in requests %}
         <tr>
-            <td scope="row"> {{ request.Serv_Type }} </td>
-            <td>{{ request.Serv_Name }}</td>
-            <td>{{ request.Serv_Applied_Date.date }}</td>
-            {% if request.Serv_Approval_Status == 'pending' %}
-                <td class="bg-warning">{{ request.Serv_Approval_Status }}</td>
-            {% elif request.Serv_Approval_Status == 'approved' %}
-                <td class="bg-success">{{ request.Serv_Approval_Status }}</td>
-            {% endif %}
-            {% if request.Serv_Completion_Status == 'pending' %}
-                <td class="bg-warning">{{ request.Serv_Completion_Status }}</td>
-            {% elif request.Serv_Completion_Status == 'approved' %}
-                <td class="bg-success">{{ request.Serv_Completion_Status }}</td>
-            {% else %}
-                <td class="">{{ request.Serv_Completion_Status }}</td>
+            <td scope="row"> {{ request.Applied_For.Trip_For.PlaceName }} </td>
+            <td>{{ request.Date_Applied.date }}</td>
+            <td>{{ request.Applied_For.Trip_Start_Date }}</td>
+            <td>{{ request.Transport_Opted }}</td>
+            <td>{{ request.No_of_Seats_Applied }}</td>
+            <td>{{ request.Amount }}</td>
+            {% if request.Payment_Status == 'Pending' %}
+                <td class="bg-warning">{{ request.Payment_Status }}</td>
+            {% elif request.Payment_Status == 'Completed' %}
+                <td class="bg-success">{{ request.Payment_Status }}</td>
             {% endif %}
             
-            <td>{{ request.Serv_Remarks }}</td>
             <td>
-                <a class="btn btn-outline-primary" href="{% url 'service-detail' request.id %}">View</a>
+                {% if request.Payment_Status == "Pending" %}
+                    <a class="btn btn-outline-primary" href="#">Pay</a>
+                {% endif %}
             </td>
           </tr>
         
@@ -130,8 +62,6 @@
         <tr>
             <td align="center" colspan="7" class="text-white" >No Entries</td>
         </tr>
-        
-        
         
         {% endfor %}-->
         </tbody>

@@ -115,8 +115,8 @@ def password_change(request):
         form = UserPwdForm(request.user, request.POST)
         if form.is_valid():
             form.save()
-            messages.DEBUG(request, f'Your password has successfully updated, please login.')
-            return redirect('Login')
+            messages.warning(request, f'Your password has successfully updated, please login.')
+            return redirect('Login_URL')
 
     else:
         form = UserPwdForm(request.user)

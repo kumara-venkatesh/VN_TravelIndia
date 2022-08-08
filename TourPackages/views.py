@@ -80,7 +80,7 @@ class mytrip(LoginRequiredMixin,ListView):
     
     paginate_by = 5
     def get_queryset(self):
-        req = Trip_Requests.objects.all()
+        req = Trip_Requests.objects.filter(Applied_By=self.request.user)
         return req
 
 @login_required

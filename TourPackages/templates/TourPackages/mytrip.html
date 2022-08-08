@@ -39,7 +39,7 @@
             
         {% for request in requests %}
         <tr>
-            <td scope="row"> {{ request.Applied_For.Trip_For.PlaceName }} </td>
+            <td scope="row"> <a href="{% url 'Package_details_URL' request.Applied_For.Trip_For.id %}" style="text-decoration: none;">{{ request.Applied_For.Trip_For.PlaceName }}</a></td>
             <td>{{ request.Date_Applied.date }}</td>
             <td>{{ request.Applied_For.Trip_Start_Date }}</td>
             <td>{{ request.Transport_Opted }}</td>

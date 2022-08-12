@@ -1,3 +1,4 @@
+from contextlib import redirect_stderr
 from tkinter import messagebox
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
@@ -5,6 +6,7 @@ from .models import *
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import redirect
 
 # Create your views here.
 
@@ -82,6 +84,24 @@ class mytrip(LoginRequiredMixin,ListView):
     def get_queryset(self):
         req = Trip_Requests.objects.filter(Applied_By=self.request.user)
         return req
+
+class mytrip_details(DetailView):
+    model = Trip_Requests
+    template_name_suffix = '_details'
+
+    def post(self, request, **kwards):
+        obj_id = request.POST.get('Object_id')
+        payment = request.POST.get('Payment')
+        if payment:
+            mytrip_inst = Trip_Requests.objects.get(id=obj_id)
+            mytrip_inst.Payment_Status="Completed"
+            mytrip_inst.save()
+        messages.success(request,'Your Payment is Successful')
+        return redirect('MyTrip_URL')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
 
 @login_required
 def veh_rental(request):

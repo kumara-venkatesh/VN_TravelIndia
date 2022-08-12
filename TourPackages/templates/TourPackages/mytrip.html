@@ -30,8 +30,8 @@
                 <th scope="col">With Transport</th>
                 <th scope="col">No of Members</th>
                 <th scope="col">Total Amount</th>
+                <th scope="col">Trip Status</th>
                 <th scope="col">Payment Status</th>
-                <th scope="col">Pay</th>
                 
             </tr>
         </thead>
@@ -45,17 +45,12 @@
             <td>{{ request.Transport_Opted }}</td>
             <td>{{ request.No_of_Seats_Applied }}</td>
             <td>{{ request.Amount }}</td>
+            <td class="">{{ request.Applied_For.Trip_status }}</td>
             {% if request.Payment_Status == 'Pending' %}
-                <td class="bg-warning">{{ request.Payment_Status }}</td>
-            {% elif request.Payment_Status == 'Completed' %}
+                <td class="bg-warning">{{ request.Payment_Status }} <a class="btn btn-success" href="{% url 'mytrip-detail' request.id %}">Pay</a> </td>
+            {% else %}
                 <td class="bg-success">{{ request.Payment_Status }}</td>
             {% endif %}
-            
-            <td>
-                {% if request.Payment_Status == "Pending" %}
-                    <a class="btn btn-outline-primary" href="#">Proceed</a>
-                {% endif %}
-            </td>
           </tr>
         
         {% empty %}

@@ -13,5 +13,6 @@ urlpatterns = [
     path('about/', views.aboutus, name='AboutUs_URL' ),
     path('package_list/', views.package_list.as_view(), name='Package_List_URL' ),
     path('my_trips/', views.mytrip.as_view(), name='MyTrip_URL' ),
+    path('my_trip/<int:pk>/', views.mytrip_details.as_view(), name='mytrip-detail'),
     path('rent_vehicle/', views.veh_rental, name='Veh_Rentals_URL' ),
 ]

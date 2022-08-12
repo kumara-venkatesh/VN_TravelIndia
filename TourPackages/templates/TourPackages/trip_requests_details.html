@@ -1,0 +1,88 @@
+{% extends 'TourPackages/Base.html' %}
+{% block content %}
+
+<form method="POST" role="form">
+	{% csrf_token %}
+    {% if object.Payment_Status == "Pending" and object.Applied_By == user %}
+    <div class="container mt-3">
+        <div class="card shadow ">
+            <div class="card-header">
+                <h5>My Trip Payment Page</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col col-sm-4">
+                        <a href="{% url 'Package_details_URL' object.Applied_For.Trip_For.id %}" style="text-decoration: none;"><img class="m-4" src="{{ object.Applied_For.Trip_For.PlaceImage1.url }}" style="border-radius: 50%; width: 250px; height:250px;" alt="Bologna"></a>
+                    </div>
+                    <input type="hidden" name="Object_id" value="{{object.id}}">
+                    <div class="col col-sm-7 rounded shadow">
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-user-alt mr-2"></i>Applied By</span>
+                            </div>
+                            
+                                <input type="text" class="form-control" value="{{ object.Applied_By }} -- on {{ object.Date_Applied.date }}" disabled> 
+                        </div>
+
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-map mr-2"></i>Place Name</span>
+                            </div>
+                            
+                                <input type="text" class="form-control" value="{{ object.Applied_For.Trip_For.PlaceName }}" disabled>
+                        </div>
+
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-calendar mr-2"></i>Trip Start Date</span>
+                            </div>
+                            
+                                <input type="text" class="form-control" value="{{ object.Applied_For.Trip_Start_Date }}" disabled>
+                        </div>
+
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-users mr-2"></i>No of Seats</span>
+                            </div>
+                            
+                                <input type="text" class="form-control" value="{{ object.No_of_Seats_Applied }}" disabled>
+                                <input type="text" class="form-control" value="Trasnport : {{ object.Transport_Opted }}" disabled>
+                        </div>
+
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-rupee-sign mr-2"></i>Total Amount Payable</span>
+                            </div>
+                                <input type="text" class="form-control" value="{{ object.Amount }}" disabled>
+                        </div>
+                        
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-rupee-sign mr-2"></i>Make Payment to</span>
+                            </div>
+                                
+                                <img src="http://127.0.0.1:8000/media/Paymet_QR.png" width="150px;">
+                        </div>
+
+                    </div>
+                
+                </div>
+
+            </div>
+            <div class="card-footer">
+                <input type="submit" class="btn btn-primary float-right" value="Make Payment" name="Payment">
+            </div>
+        </div>
+    </div>
+
+    {% elif object.Applied_By != user %}
+    <div class="bg-white m-5 p-5 rounded">
+        <center><h4 class="text-danger">You do not have access to this page</h4></center>
+    </div>
+    {% else %}
+    <div class="bg-white m-5 p-5 rounded">
+        <center><h4 class="text-success">Payment is {{ object.Payment_Status }} for this trip</h4></center>
+    </div>
+    {% endif %}
+</form>
+{% endblock content %}

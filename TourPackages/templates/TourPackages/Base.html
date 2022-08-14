@@ -42,11 +42,11 @@
 
   }
 
-  .navbar ul li{
+  .navbar li{
     margin: 3px;
   }
 
-  .navbar ul li::after{
+  .navbar li::after{
     content: '';
     width: 0%;
     height: 2px;
@@ -56,7 +56,7 @@
     transition: 0.5s;
     }
 
-    .navbar ul li:hover::after{
+    .navbar li:hover::after{
       width: 80%;
     }
  
@@ -88,9 +88,21 @@
                       <li class="nav-item">
                         <a class="navhead rounded nav-link text-white" href="{% url 'Package_URL' %}">TourPackages</a>
                       </li>
-                      <li class="nav-item">
-                        <a class="navhead rounded nav-link text-white" href="{% url 'MyTrip_URL' %}">My Trips</a>
+                      
+                      <li class="nav-item dropdown">
+                        <a class="navhead rounded nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          My Requests
+                        </a>
+                        <ul class="dropdown-menu nav-item border bg-secondary">
+                          <li class="nav-item">
+                            <a class="navhead rounded nav-link text-white" href="{% url 'MyTrip_URL' %}">My Trips</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="navhead rounded nav-link text-white" href="{% url 'My_Vehicle_Req_URL' %}">My Vehicle Requests</a>
+                          </li>
+                        </ul>
                       </li>
+
                       <li class="nav-item">
                         <a class="navhead rounded nav-link text-white" href="{% url 'Profile_URL' %}">{{ user.first_name }}'s Profile</a>
                       </li>

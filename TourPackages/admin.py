@@ -5,3 +5,4 @@ from .models import *
 admin.site.register(Packages)
 admin.site.register(TripInfo)
 admin.site.register(Trip_Requests)
+admin.site.register(Rent_Vehicle)

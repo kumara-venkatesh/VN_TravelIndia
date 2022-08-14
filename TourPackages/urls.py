@@ -15,4 +15,5 @@ urlpatterns = [
     path('my_trips/', views.mytrip.as_view(), name='MyTrip_URL' ),
     path('my_trip/<int:pk>/', views.mytrip_details.as_view(), name='mytrip-detail'),
     path('rent_vehicle/', views.veh_rental, name='Veh_Rentals_URL' ),
+    path('my_vehicle_requests/', views.my_vehcile_requests.as_view(), name='My_Vehicle_Req_URL' ),
 ]

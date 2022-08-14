@@ -1,9 +1,11 @@
 from contextlib import redirect_stderr
+import re
 from tkinter import messagebox
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from .models import *
 from django.contrib import messages
+from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
@@ -105,4 +107,36 @@ class mytrip_details(DetailView):
 
 @login_required
 def veh_rental(request):
+    if request.method == "POST":
+        veh_type = request.POST.get('vehtype')
+        
+        if veh_type == 'Car':
+            per_day_amount = 3000
+        elif veh_type == 'Bike':
+            per_day_amount = 1500
+        
+        veh_req_date = request.POST.get('date')
+        no_days = request.POST.get('ndays')
+        total_amount = int(per_day_amount) * int(no_days)
+        address = request.POST.get('address')
+
+        if request.FILES.__contains__('doc_proof'):
+            driv_lic = request.FILES['doc_proof']
+            fs = FileSystemStorage()
+            fs.save(driv_lic.name, driv_lic)
+
+        rent_veh = Rent_Vehicle.objects.create(veh_requested_by=request.user, veh_type=veh_type, advance_paid=0, Amount_payable=total_amount, vehicle_req_date=veh_req_date, 
+        no_of_days_req=no_days, driving_license=driv_lic, address=address, req_Status="Requested")
+        rent_veh.save()
+        messages.success(request,'Vehicle Requested Successfully, Vehicle Confirmation will be updated under My Vehicle Requests Section')
     return render(request,'TourPackages/veh_rentals.html')
+
+class my_vehcile_requests(LoginRequiredMixin,ListView):
+    model = Rent_Vehicle
+    template_name = 'TourPackages/my_vehicle_requests.html'
+    context_object_name = 'requests'
+    
+    paginate_by = 5
+    def get_queryset(self):
+        req = Rent_Vehicle.objects.filter(veh_requested_by=self.request.user)
+        return req

@@ -12,7 +12,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col col-sm-4">
-                        <a href="{% url 'Package_details_URL' object.Applied_For.Trip_For.id %}" style="text-decoration: none;"><img class="m-4" src="{{ object.Applied_For.Trip_For.PlaceImage1.url }}" style="border-radius: 50%; width: 250px; height:250px;" alt="Bologna"></a>
+                        <a href="{% url 'Package_details_URL' object.Applied_For.Trip_For.id %}" style="text-decoration: none;"><img class="m-4" src="{{ object.Applied_For.Trip_For.PlaceImage1.url }}" style="border-radius: 10%; border:4px solid lightgray;  width: 250px; height:250px;" alt="Bologna"></a>
                     </div>
                     <input type="hidden" name="Object_id" value="{{object.id}}">
                     <div class="col col-sm-7 rounded shadow">

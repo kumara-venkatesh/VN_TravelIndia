@@ -47,7 +47,7 @@
             <td>{{ request.Amount }}</td>
             <td class="">{{ request.Applied_For.Trip_status }}</td>
             {% if request.Payment_Status == 'Pending' %}
-                <td class="bg-warning">{{ request.Payment_Status }} <a class="btn btn-success" href="{% url 'mytrip-detail' request.id %}">Pay</a> </td>
+                <td class="bg-warning">{{ request.Payment_Status }} <a class="btn btn-success ml-5" href="{% url 'mytrip-detail' request.id %}">Pay</a> </td>
             {% else %}
                 <td class="bg-success">{{ request.Payment_Status }}</td>
             {% endif %}

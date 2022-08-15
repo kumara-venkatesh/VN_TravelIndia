@@ -52,9 +52,9 @@
             {% if request.req_Status == 'Requested' %}
                 <td class="bg-warning">{{ request.req_Status }} </td>
             {% elif request.req_Status == 'Approved' %}
-                <td class="bg-success">{{ request.Payment_Status }}</td>
+                <td class="bg-success">{{ request.req_Status }}</td>
             {% elif request.req_Status == 'Rejected' %}
-                <td class="bg-danger">{{ request.Payment_Status }}</td>
+                <td class="bg-danger">{{ request.req_Status }}</td>
             {% endif %}
             <td>{{ request.remarks }}</td>
           </tr>

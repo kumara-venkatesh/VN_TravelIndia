@@ -59,7 +59,6 @@ class package_details(DetailView):
 
                 else:
                     messages.warning(self.request,'Please Stay Tuned, Trip Schedule is not started, will notify to Travel India')
-
         return context
         
 def aboutus(request):
